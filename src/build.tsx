@@ -11,21 +11,18 @@ const buildPage = async (filename: string) => {
 		mkdirSync(BUILD_DIR);
 	}
 	const importPath = `./pages/${filename}`;
-	const outPath = join(
-		process.cwd(),
-		BUILD_DIR,
-		basename(filename, extname(filename)) + ".html"
-	);
+	const pageId = basename(filename, extname(filename));
+	const outPath = join(process.cwd(), BUILD_DIR, pageId + ".html");
 
 	const Contents = (await import(importPath)).default;
 	const App = () => (
-		<Layout>
+		<Layout pageId={pageId}>
 			<Contents />
 		</Layout>
 	);
 
 	const { pipe } = renderToPipeableStream(<App />, {
-		// bootstrapScripts: ["bundle.js"],
+		bootstrapScripts: ["bundle.js"],
 		onAllReady() {
 			console.log(`writing ${outPath}`);
 			pipe(createWriteStream(outPath, "utf8"));

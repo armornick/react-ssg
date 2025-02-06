@@ -1,13 +1,17 @@
 import React from "react";
 import { hydrateRoot } from "react-dom/client";
-import App from "../components/app";
-
 import "./styles.css";
 
-const msg = async () => (await import("./msg")).default;
-setTimeout(async () => {
-	const message = await msg();
-	console.log(message);
-}, 1200);
+const PAGE_MAP = {
+	index: () => import("../pages/index"),
+	about: () => import("../pages/about"),
+};
 
-hydrateRoot(document, <App />);
+(async () => {
+	const pageId = document.body.dataset.page;
+	console.log(`hydrating page with id '${pageId}'`);
+	if (pageId && pageId in PAGE_MAP) {
+		const App = (await PAGE_MAP[pageId]()).default;
+		hydrateRoot(document.body, <App />);
+	}
+})();

@@ -1,5 +1,7 @@
 import React from "react";
 
+console.log("DEBUG: importing about.tsx");
+
 export default function AboutPage() {
 	return (
 		<main>

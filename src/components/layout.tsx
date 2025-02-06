@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function BaseLayout({ children }) {
+export default function BaseLayout({ pageId, children }) {
 	return (
 		<html lang="en">
 			<head>
@@ -12,7 +12,7 @@ export default function BaseLayout({ children }) {
 				<title>Document</title>
 				<link rel="stylesheet" href="bundle.css" />
 			</head>
-			<body>{children}</body>
+			<body data-page={pageId}>{children}</body>
 		</html>
 	);
 }
