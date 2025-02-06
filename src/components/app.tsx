@@ -11,6 +11,7 @@ function BaseLayout({ children }) {
 					content="width=device-width, initial-scale=1.0"
 				/>
 				<title>Document</title>
+				<link rel="stylesheet" href="bundle.css" />
 			</head>
 			<body>{children}</body>
 		</html>
